@@ -12,7 +12,6 @@ class ServerlessPlugin {
 		this.serverless = serverless
 		this.options = options
 		this.path = './.ahaless'
-		console.log(this.options)
 
 		if (this.options.gf) {
 			this.gfHandler().catch(err => {
@@ -28,16 +27,17 @@ class ServerlessPlugin {
 			require('tsconfig-paths').register()
 
 			const servicePath = path.join(this.serverless.config.servicePath, '/handler.ts')
-			const Handler = require(servicePath).default
+			const metadata = require(servicePath).metadata.flat(1)
 
-			const metadata = Handler.metadata.reduce((acc, value) => {
-				acc[value.fnName] = {
+			const result = metadata.reduce((acc, value) => {
+				const path = value.path ? value.path : value.fnName
+				acc[path] = {
 					handler: `handler.${value.fnName}`,
 						events: [
 						{
 							http: {
 								method: value.method,
-								path: value.path ? value.path : value.fnName
+								path
 							}
 						}
 					]
@@ -46,7 +46,7 @@ class ServerlessPlugin {
 				return acc
 			}, {})
 
-			const data = JSON.stringify(metadata, null, 2)
+			const data = JSON.stringify(result, null, 2)
 
 			const stats = await stat(this.path).catch(e => {
 				this.serverless.cli.log(e.message)
