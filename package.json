@@ -1,18 +1,19 @@
 {
-  "name": "@ahamove/serverless-generate-fns",
+  "name": "@ahamove/serverless-generate-functions",
   "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lynkxyz/serverless-gen-functions.git"
+    "url": "https://github.com/lynkxyz/serverless-generate-functions.git"
   },
   "bugs": {
-    "url": "https://github.com/lynkxyz/serverless-gen-functions/issues"
+    "url": "https://github.com/lynkxyz/serverless-generate-functions/issues"
   },
-  "homepage": "https://github.com/lynkxyz/serverless-gen-functions#readme",
+  "homepage": "https://github.com/lynkxyz/serverless-generate-functions#readme",
   "author": "lynkxyz",
   "keywords": [
+    "serverless-generate-functions",
     "serverless",
     "serverless plugin",
     "serverless typescript"
