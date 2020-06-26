@@ -2,6 +2,7 @@
 const fs = require('fs')
 const path = require('path')
 const { promisify } = require('util')
+const flattenDeep = require('lodash.flattendeep')
 
 const stat = promisify(fs.stat)
 const mkdir = promisify(fs.mkdir)
@@ -27,7 +28,7 @@ class ServerlessPlugin {
 			require('tsconfig-paths').register()
 
 			const servicePath = path.join(this.serverless.config.servicePath, '/handler.ts')
-			const metadata = require(servicePath).metadata.flat(1)
+			const metadata = flattenDeep(require(servicePath).metadata)
 
 			const result = metadata.reduce((acc, value) => {
 				const path = value.path ? value.path : value.fnName
